@@ -1,12 +1,17 @@
-import React from 'react';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import InputField from "./components/InputField";
 
-function App() {
+const App: React.FC = () => {
+  const [value, setValue] = useState<string>("");
+
+  console.log(value);
+
   return (
     <div className="App">
-      Hello World
+      <InputField value={value} setValue={setValue} />
     </div>
   );
-}
+};
 
 export default App;
