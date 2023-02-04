@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../App.css";
 import axios from "axios";
+import Card from "./Card";
 
 export type Post = {
   body: string;
@@ -15,7 +16,7 @@ interface Props {
 }
 
 export default function InputField({ value, setValue }: Props) {
-  const [post, setPost] = useState<Post[] | null>();
+  const [post, setPost] = useState<Post[] | null>(null);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -24,8 +25,8 @@ export default function InputField({ value, setValue }: Props) {
     axios.get(baseURL).then((response) => {
       setPost(
         response.data
-          ? response.data.filter((element: { title: string | string[] }) =>
-              element.title.includes(value)
+          ? response.data.filter((element: { body: string | string[] }) =>
+              element.body.includes(value)
             )
           : null
       );
@@ -49,11 +50,7 @@ export default function InputField({ value, setValue }: Props) {
       </form>
 
       <div>
-        {post
-          ? post.map((post) => {
-              return <p>{post.title}</p>;
-            })
-          : null}
+        <Card paragraphs={post} />
       </div>
     </div>
   );
